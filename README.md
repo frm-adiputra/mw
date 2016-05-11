@@ -21,14 +21,14 @@ Relevant and influential articles:
 # Usage
 
 ```go
-MWChain.New(Middleware1, Middlware2, Middleware3).With(ctx).Then(App)
+mwchain.New(Middleware1, Middlware2, Middleware3).Then(App)
 ```
 
 # Integration with http.Handler middleware
 
 MWChain provides a `Wrap` function to inject normal http.Handler-based middleware into the chain.  The context will skip over the injected middleware and pass unharmed to the next context-aware handler in the chain.
 ```go
-MWChain.New(ContextMW1, MWChain.Wrap(NormalMiddlware), ContextMW2).With(ctx).Then(App)
+mwchain.New(ContextMW1, mwchain.Wrap(NormalMiddlware), ContextMW2).Then(App)
 ```
 # Motivation
 
