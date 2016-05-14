@@ -40,7 +40,7 @@ func New(constructors ...C) Chain {
 	return constructors
 }
 
-// Then chains the middleware and returns the final Handler.
+// Then end the middleware with a Handler and returns the final Handler.
 func (c Chain) Then(last Handler) Handler {
 	_last := last
 
@@ -53,6 +53,11 @@ func (c Chain) Then(last Handler) Handler {
 	}
 
 	return _last
+}
+
+// ThenFunc end the middleware with a handler function and returns the final Handler.
+func (c Chain) ThenFunc(last func(context.Context, http.ResponseWriter, *http.Request) context.Context) Handler {
+	return c.Then(HandlerFunc(last))
 }
 
 // Chain extends a chain, adding the specified constructors
