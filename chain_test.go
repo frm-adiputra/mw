@@ -92,7 +92,7 @@ func httpMW(h http.Handler) http.Handler {
 
 func TestChain(t *testing.T) {
 	assert := assert.New(t)
-	chain := NewChain(
+	chain := New(
 		fxMW["mw0"],
 		fxMW["mw1"],
 		fxMW["mw2"],
@@ -115,7 +115,7 @@ func TestChain(t *testing.T) {
 
 func TestChainWithNilAsFinal(t *testing.T) {
 	assert := assert.New(t)
-	chain := NewChain(
+	chain := New(
 		fxMW["mw0"],
 		fxMW["mw1"],
 		fxMW["mw2"],
@@ -138,7 +138,7 @@ func TestChainWithNilAsFinal(t *testing.T) {
 
 func TestChainNoMW(t *testing.T) {
 	assert := assert.New(t)
-	chain := NewChain().Then(HandlerFunc(hZero))
+	chain := New().Then(HandlerFunc(hZero))
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		chain.ServeHTTP(context.Background(), w, r)
 	}))
@@ -157,7 +157,7 @@ func TestChainNoMW(t *testing.T) {
 
 func TestChainNoMWWithNilAsFinal(t *testing.T) {
 	assert := assert.New(t)
-	chain := NewChain().Then(nil)
+	chain := New().Then(nil)
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		chain.ServeHTTP(context.Background(), w, r)
 	}))
@@ -176,13 +176,13 @@ func TestChainNoMWWithNilAsFinal(t *testing.T) {
 
 func TestChainAppend(t *testing.T) {
 	assert := assert.New(t)
-	chain0 := NewChain(
+	chain0 := New(
 		fxMW["mw0"],
 		fxMW["mw1"],
 		fxMW["mw2"],
 	)
 
-	mwh1 := chain0.Append(
+	mwh1 := chain0.Chain(
 		fxMW["mw3"],
 		fxMW["mw4"],
 		fxMW["mw5"],
@@ -223,7 +223,7 @@ func TestChainAppend(t *testing.T) {
 
 func TestChainUseContext(t *testing.T) {
 	assert := assert.New(t)
-	chain := NewChain(
+	chain := New(
 		fxMW["mwctx0"],
 		fxMW["mwctx1"],
 		fxMW["mwctx2"],
@@ -248,7 +248,7 @@ func TestChainUseContext(t *testing.T) {
 
 func TestChainWrapUseContext(t *testing.T) {
 	assert := assert.New(t)
-	chain := NewChain(
+	chain := New(
 		fxMW["mwctx0"],
 		fxMW["mwctx1"],
 		Wrap(httpMW),
