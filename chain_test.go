@@ -1,12 +1,10 @@
 package mwchain
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
 	"golang.org/x/net/context"
@@ -16,9 +14,7 @@ import (
 
 var fxMW = make(map[string]func(Handler) Handler)
 
-func TestMain(m *testing.M) {
-	flag.Parse()
-
+func init() {
 	for i := 0; i <= 5; i++ {
 		b := fmt.Sprintf("b%d-", i)
 		a := fmt.Sprintf("a%d-", i)
@@ -59,10 +55,6 @@ func TestMain(m *testing.M) {
 		}
 		fxMW[fmt.Sprintf("mwctx%d", i)] = f
 	}
-
-	ret := m.Run()
-
-	os.Exit(ret)
 }
 
 func hZero(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
