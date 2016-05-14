@@ -1,4 +1,4 @@
-package mwchain
+package mw
 
 import (
 	"net/http"
@@ -29,7 +29,7 @@ func (h HandlerFunc) ServeHTTP(ctx context.Context, w http.ResponseWriter, r *ht
 // C is a constructor for a context-aware middleware.
 type C func(Handler) Handler
 
-// Chain acts as a list of mwchain.Handler constructors. Chain is effectively
+// Chain acts as a list of middleware constructors. Chain is effectively
 // immutable, once created, it will always hold the same set of constructors in
 // the same order.
 type Chain []C

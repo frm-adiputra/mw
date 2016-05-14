@@ -2,7 +2,7 @@ language: go
 
 install:
   - go get github.com/stretchr/testify/assert
-  - go get github.com/frm-adiputra/mwchain
+  - go get github.com/frm-adiputra/mw
 
 go:
   - 1.1
