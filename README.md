@@ -1,6 +1,8 @@
 MWChain
 =======
 
+[![Build Status](https://travis-ci.org/frm-adiputra/mwchain.svg?branch=master)](https://travis-ci.org/frm-adiputra/mwchain)
+
 MWChain enables [Alice](https://github.com/justinas/alice)-style chaining of
 context-aware middleware and handlers (using Google's `net/context` package).
 But unlike [Apollo](https://github.com/cyclopsci/apollo), it never stores
