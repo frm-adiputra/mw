@@ -105,6 +105,25 @@ func TestChain(t *testing.T) {
 	assert.Equal(string(body), "b0-b1-b2-h0-a2-a1-a0-")
 }
 
+func TestChainOne(t *testing.T) {
+	assert := assert.New(t)
+	chain := New(fxMW["mw0"]).Then(HandlerFunc(hZero))
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		chain.ServeHTTP(context.Background(), w, r)
+	}))
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL)
+	assert.NoError(err)
+
+	body, err := ioutil.ReadAll(res.Body)
+	assert.NoError(err)
+	res.Body.Close()
+
+	assert.Equal(res.StatusCode, 200)
+	assert.Equal(string(body), "b0-h0-a0-")
+}
+
 func TestChainWithNilAsFinal(t *testing.T) {
 	assert := assert.New(t)
 	chain := New(
