@@ -2,6 +2,7 @@ MW
 =======
 
 [![Build Status](https://travis-ci.org/frm-adiputra/mw.svg?branch=master)](https://travis-ci.org/frm-adiputra/mw)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffrm-adiputra%2Fmw.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffrm-adiputra%2Fmw?ref=badge_shield)
 
 MW enables [Alice](https://github.com/justinas/alice)-style chaining of context-aware middleware and handlers (using Google's `net/context` package).
 But unlike [Apollo](https://github.com/cyclopsci/apollo), it never stores contexts.
@@ -36,3 +37,7 @@ The context will skip over the injected middleware and pass unharmed to the next
 ```go
 mw.New(mw1, mw.Wrap(NormalMiddlware), mw2).Then(handler)
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffrm-adiputra%2Fmw.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffrm-adiputra%2Fmw?ref=badge_large)
